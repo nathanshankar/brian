@@ -1,0 +1,626 @@
+<?xml version="1.0"?>
+<robot name="brian_visualize_collision">
+  <link name="base_link">
+    <visual>
+    <origin xyz="0.000 0.000 0.003" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <mesh filename= "package://brian_description/mesh_files/dae_files/base.dae"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.900"/>
+      <inertia
+        ixx="0.00449" ixy="0.00000" ixz="0.00000"
+        iyy="0.00419" iyz="0.00000"
+        izz="0.00560"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.000 0.000 0.003" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.140 0.154 0.070"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="hip_fl_ref">
+    <visual>
+    <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.002 0.002 0.002"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.000"/>
+      <inertia
+        ixx="0.00000" ixy="0.00000" ixz="0.00000"
+        iyy="0.00000" iyz="0.00000"
+        izz="0.00000"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.002 0.002 0.002"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="hip_fr_ref">
+    <visual>
+    <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.002 0.002 0.002"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.000"/>
+      <inertia
+        ixx="0.00000" ixy="0.00000" ixz="0.00000"
+        iyy="0.00000" iyz="0.00000"
+        izz="0.00000"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.002 0.002 0.002"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="hip_bl_ref">
+    <visual>
+    <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.002 0.002 0.002"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.000"/>
+      <inertia
+        ixx="0.00000" ixy="0.00000" ixz="0.00000"
+        iyy="0.00000" iyz="0.00000"
+        izz="0.00000"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.002 0.002 0.002"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="hip_br_ref">
+    <visual>
+    <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.002 0.002 0.002"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.000"/>
+      <inertia
+        ixx="0.00000" ixy="0.00000" ixz="0.00000"
+        iyy="0.00000" iyz="0.00000"
+        izz="0.00000"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.002 0.002 0.002"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="hip_fl_link">
+    <visual>
+    <origin xyz="-0.006 -0.000 0.011" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <mesh filename= "package://brian_description/mesh_files/dae_files/hip_fl.dae"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.233"/>
+      <inertia
+        ixx="0.00315" ixy="-0.00000" ixz="0.00002"
+        iyy="0.00320" iyz="0.00000"
+        izz="0.00313"/>
+    </inertial>
+    <collision>
+      <origin xyz="-0.006 -0.000 0.011" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.071 0.052 0.070"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="hip_fr_link">
+    <visual>
+    <origin xyz="-0.006 0.000 0.011" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <mesh filename= "package://brian_description/mesh_files/dae_files/hip_fr.dae"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.233"/>
+      <inertia
+        ixx="0.00315" ixy="0.00000" ixz="0.00002"
+        iyy="0.00320" iyz="-0.00000"
+        izz="0.00313"/>
+    </inertial>
+    <collision>
+      <origin xyz="-0.006 0.000 0.011" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.071 0.052 0.070"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="hip_bl_link">
+    <visual>
+    <origin xyz="0.006 -0.000 0.011" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.071 0.052 0.070"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.233"/>
+      <inertia
+        ixx="0.00315" ixy="0.00000" ixz="-0.00002"
+        iyy="0.00320" iyz="0.00000"
+        izz="0.00313"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.006 -0.000 0.011" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.071 0.052 0.070"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="hip_br_link">
+    <visual>
+    <origin xyz="0.006 0.000 0.011" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.071 0.052 0.070"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.233"/>
+      <inertia
+        ixx="0.00315" ixy="-0.00000" ixz="-0.00002"
+        iyy="0.00320" iyz="-0.00000"
+        izz="0.00313"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.006 0.000 0.011" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.071 0.052 0.070"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="femur_fl_link">
+    <visual>
+    <origin xyz="0.004 0.002 -0.057" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.055 0.075 0.161"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.084"/>
+      <inertia
+        ixx="0.00499" ixy="-0.00000" ixz="0.00002"
+        iyy="0.00497" iyz="0.00001"
+        izz="0.00456"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.004 0.002 -0.057" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.055 0.075 0.161"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="femur_fr_link">
+    <visual>
+    <origin xyz="0.004 -0.002 -0.057" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.055 0.075 0.161"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.084"/>
+      <inertia
+        ixx="0.00499" ixy="0.00000" ixz="0.00002"
+        iyy="0.00497" iyz="-0.00001"
+        izz="0.00456"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.004 -0.002 -0.057" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.055 0.075 0.161"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="femur_bl_link">
+    <visual>
+    <origin xyz="0.004 0.002 -0.057" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.055 0.075 0.161"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.084"/>
+      <inertia
+        ixx="0.00499" ixy="-0.00000" ixz="0.00002"
+        iyy="0.00497" iyz="0.00001"
+        izz="0.00456"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.004 0.002 -0.057" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.055 0.075 0.161"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="femur_br_link">
+    <visual>
+    <origin xyz="0.004 -0.002 -0.057" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.055 0.075 0.161"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.084"/>
+      <inertia
+        ixx="0.00499" ixy="0.00000" ixz="0.00002"
+        iyy="0.00497" iyz="-0.00001"
+        izz="0.00456"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.004 -0.002 -0.057" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.055 0.075 0.161"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="tibia_fl_link">
+    <visual>
+      <geometry>
+        <mesh filename= "package://brian_description/mesh_files/dae_files/tibia_l.dae"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.034"/>
+      <inertia
+        ixx="0.00178" ixy="-0.00000" ixz="-0.00001"
+        iyy="0.00178" iyz="-0.00001"
+        izz="0.00164"/>
+    </inertial>
+    <collision>
+      <geometry>
+        <mesh filename= "package://brian_description/mesh_files/dae_files/tibia_l.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="tibia_fr_link">
+    <visual>
+      <geometry>
+        <mesh filename= "package://brian_description/mesh_files/dae_files/tibia_r.dae"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.034"/>
+      <inertia
+        ixx="0.00178" ixy="0.00000" ixz="-0.00001"
+        iyy="0.00178" iyz="0.00001"
+        izz="0.00164"/>
+    </inertial>
+    <collision>
+      <geometry>
+        <mesh filename= "package://brian_description/mesh_files/dae_files/tibia_r.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="tibia_bl_link">
+    <visual>
+      <geometry>
+        <mesh filename= "package://brian_description/mesh_files/dae_files/tibia_l.dae"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.034"/>
+      <inertia
+        ixx="0.00178" ixy="-0.00000" ixz="-0.00001"
+        iyy="0.00178" iyz="-0.00001"
+        izz="0.00164"/>
+    </inertial>
+    <collision>
+      <geometry>
+        <mesh filename= "package://brian_description/mesh_files/dae_files/tibia_l.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="tibia_br_link">
+    <visual>
+      <geometry>
+        <mesh filename= "package://brian_description/mesh_files/dae_files/tibia_r.dae"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.034"/>
+      <inertia
+        ixx="0.00178" ixy="0.00000" ixz="-0.00001"
+        iyy="0.00178" iyz="0.00001"
+        izz="0.00164"/>
+    </inertial>
+    <collision>
+      <geometry>
+        <mesh filename= "package://brian_description/mesh_files/dae_files/tibia_r.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="feet_fl">
+    <visual>
+    <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.002 0.002 0.002"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.000"/>
+      <inertia
+        ixx="0.00000" ixy="0.00000" ixz="0.00000"
+        iyy="0.00000" iyz="0.00000"
+        izz="0.00000"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.002 0.002 0.002"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="feet_fr">
+    <visual>
+    <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.002 0.002 0.002"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.000"/>
+      <inertia
+        ixx="0.00000" ixy="0.00000" ixz="0.00000"
+        iyy="0.00000" iyz="0.00000"
+        izz="0.00000"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.002 0.002 0.002"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="feet_bl">
+    <visual>
+    <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.002 0.002 0.002"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.000"/>
+      <inertia
+        ixx="0.00000" ixy="0.00000" ixz="0.00000"
+        iyy="0.00000" iyz="0.00000"
+        izz="0.00000"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.002 0.002 0.002"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="feet_br">
+    <visual>
+    <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.002 0.002 0.002"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="0.000"/>
+      <inertia
+        ixx="0.00000" ixy="0.00000" ixz="0.00000"
+        iyy="0.00000" iyz="0.00000"
+        izz="0.00000"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.002 0.002 0.002"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+
+
+
+  <joint name="fl_ref" type="fixed">
+    <parent link="base_link"/>
+    <child  link="hip_fl_ref"/>
+    <origin xyz="0.10136 0.05355 0.00000"/>
+  </joint>
+
+  <joint name="fr_ref" type="fixed">
+    <parent link="base_link"/>
+    <child  link="hip_fr_ref"/>
+    <origin xyz="0.10136 -0.05355 0.00000"/>
+  </joint>
+
+  <joint name="bl_ref" type="fixed">
+    <parent link="base_link"/>
+    <child  link="hip_bl_ref"/>
+    <origin xyz="-0.10136 0.05355 0.00000"/>
+  </joint>
+
+  <joint name="br_ref" type="fixed">
+    <parent link="base_link"/>
+    <child  link="hip_br_ref"/>
+    <origin xyz="-0.10136 -0.05355 0.00000"/>
+  </joint>
+
+  <joint name="hip1_fl" type="revolute">
+    <axis xyz="1.000 0.000 0.000"/>
+    <limit effort="10000.00000" lower="-1.57080" upper="1.57080" velocity="1.04720"/>
+    <parent link="hip_fl_ref"/>
+    <child  link="hip_fl_link"/>
+    <origin xyz="0.00000 0.00000 0.00000"/>
+  </joint>
+
+  <joint name="hip1_fr" type="revolute">
+    <axis xyz="1.000 0.000 0.000"/>
+    <limit effort="10000.00000" lower="-1.57080" upper="1.57080" velocity="1.04720"/>
+    <parent link="hip_fr_ref"/>
+    <child  link="hip_fr_link"/>
+    <origin xyz="0.00000 0.00000 0.00000"/>
+  </joint>
+
+  <joint name="hip1_bl" type="revolute">
+    <axis xyz="1.000 0.000 0.000"/>
+    <limit effort="10000.00000" lower="-1.57080" upper="1.57080" velocity="1.04720"/>
+    <parent link="hip_bl_ref"/>
+    <child  link="hip_bl_link"/>
+    <origin xyz="0.00000 0.00000 0.00000"/>
+  </joint>
+
+  <joint name="hip1_br" type="revolute">
+    <axis xyz="1.000 0.000 0.000"/>
+    <limit effort="10000.00000" lower="-1.57080" upper="1.57080" velocity="1.04720"/>
+    <parent link="hip_br_ref"/>
+    <child  link="hip_br_link"/>
+    <origin xyz="0.00000 0.00000 0.00000"/>
+  </joint>
+
+  <joint name="hip2_fl" type="revolute">
+    <axis xyz="0.000 1.000 0.000"/>
+    <limit effort="10000.00000" lower="0.00000" upper="3.14159" velocity="1.04720"/>
+    <parent link="hip_fl_link"/>
+    <child  link="femur_fl_link"/>
+    <origin xyz="0.00000 0.04200 0.00000"/>
+  </joint>
+
+  <joint name="hip2_fr" type="revolute">
+    <axis xyz="0.000 1.000 0.000"/>
+    <limit effort="10000.00000" lower="0.00000" upper="3.14159" velocity="1.04720"/>
+    <parent link="hip_fr_link"/>
+    <child  link="femur_fr_link"/>
+    <origin xyz="0.00000 -0.04200 0.00000"/>
+  </joint>
+
+  <joint name="hip2_bl" type="revolute">
+    <axis xyz="0.000 1.000 0.000"/>
+    <limit effort="10000.00000" lower="0.00000" upper="3.14159" velocity="1.04720"/>
+    <parent link="hip_bl_link"/>
+    <child  link="femur_bl_link"/>
+    <origin xyz="0.00000 0.04200 0.00000"/>
+  </joint>
+
+  <joint name="hip2_br" type="revolute">
+    <axis xyz="0.000 1.000 0.000"/>
+    <limit effort="10000.00000" lower="0.00000" upper="3.14159" velocity="1.04720"/>
+    <parent link="hip_br_link"/>
+    <child  link="femur_br_link"/>
+    <origin xyz="0.00000 -0.04200 0.00000"/>
+  </joint>
+
+  <joint name="knee_fl" type="revolute">
+    <axis xyz="0.000 1.000 0.000"/>
+    <limit effort="10000.00000" lower="-3.14159" upper="0.00000" velocity="1.04720"/>
+    <parent link="femur_fl_link"/>
+    <child  link="tibia_fl_link"/>
+    <origin xyz="0.00000 -0.00436 -0.11335"/>
+  </joint>
+
+  <joint name="knee_fr" type="revolute">
+    <axis xyz="0.000 1.000 0.000"/>
+    <limit effort="10000.00000" lower="-3.14159" upper="0.00000" velocity="1.04720"/>
+    <parent link="femur_fr_link"/>
+    <child  link="tibia_fr_link"/>
+    <origin xyz="0.00000 0.00436 -0.11335"/>
+  </joint>
+
+  <joint name="knee_bl" type="revolute">
+    <axis xyz="0.000 1.000 0.000"/>
+    <limit effort="10000.00000" lower="-3.14159" upper="0.00000" velocity="1.04720"/>
+    <parent link="femur_bl_link"/>
+    <child  link="tibia_bl_link"/>
+    <origin xyz="0.00000 -0.00436 -0.11335"/>
+  </joint>
+
+  <joint name="knee_br" type="revolute">
+    <axis xyz="0.000 1.000 0.000"/>
+    <limit effort="10000.00000" lower="-3.14159" upper="0.00000" velocity="1.04720"/>
+    <parent link="femur_br_link"/>
+    <child  link="tibia_br_link"/>
+    <origin xyz="0.00000 0.00436 -0.11335"/>
+  </joint>
+
+  <joint name="feet_fl_ref" type="fixed">
+    <parent link="tibia_fl_link"/>
+    <child  link="feet_fl"/>
+    <origin xyz="0.00000 -0.01451 -0.10938"/>
+  </joint>
+
+  <joint name="feet_fr_ref" type="fixed">
+    <parent link="tibia_fr_link"/>
+    <child  link="feet_fr"/>
+    <origin xyz="0.00000 0.01451 -0.10938"/>
+  </joint>
+
+  <joint name="feet_bl_ref" type="fixed">
+    <parent link="tibia_bl_link"/>
+    <child  link="feet_bl"/>
+    <origin xyz="0.00000 -0.01451 -0.10938"/>
+  </joint>
+
+  <joint name="feet_br_ref" type="fixed">
+    <parent link="tibia_br_link"/>
+    <child  link="feet_br"/>
+    <origin xyz="0.00000 0.01451 -0.10938"/>
+  </joint>
+
+</robot>

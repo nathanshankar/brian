@@ -1,0 +1,2459 @@
+<?xml version='1.0'?>
+<robot name="my_maze">
+
+	<link name="odom">
+	</link>
+	<material name="white">
+		<color rgba="1 1 1 1"/>
+	</material>
+	<link name='wall1'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-2.25 -2.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall2'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-2 -2.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall3'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-2.25 -1.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall4'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-2.25 -1.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall5'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-2.25 -0.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall6'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-2 -1 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall7'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-2.25 -0.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall8'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-2.25 0.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall9'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-2.25 0.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall10'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-2 0.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall11'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-2.25 1.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall12'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-2.25 1.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall13'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-2 2 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall14'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-1.5 -2.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall15'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-1.5 -2 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall16'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-1.75 -1.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall17'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-1.75 -0.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall18'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-1.5 0 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall19'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-1.5 0.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall20'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-1.5 1 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall21'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-1.5 2 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall22'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-1 -2.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall23'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-1.25 -1.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall24'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-1 -2 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall25'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-1.25 -0.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall26'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-1 -1 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall27'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-1 0 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall28'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-1 0.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall29'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-1.25 1.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall30'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-1.25 1.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall31'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-1 2 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall32'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-0.5 -2.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall33'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-0.75 -1.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall34'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-0.5 -2 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall35'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-0.75 -0.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall36'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-0.5 -0.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall37'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-0.75 0.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall38'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-0.5 0 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall39'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-0.75 0.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall40'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-0.75 1.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall41'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-0.5 1.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall42'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-0.5 2 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall43'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0 -2.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall44'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-0.25 -1.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall45'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0 -2 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall46'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-0.25 -0.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall47'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0 0 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall48'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="-0.25 0.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall49'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0 0.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall50'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0 2 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall51'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0.5 -2.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall52'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0.5 -2 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall53'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0.5 -1.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall54'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0.25 -0.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall55'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0.5 -0.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall56'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0.25 0.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall57'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0.5 0 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall58'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0.5 0.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall59'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0.25 1.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall60'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0.5 1 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall61'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0.5 2 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall62'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1 -2.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall63'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1 -2 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall64'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0.75 -1.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall65'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1 -1.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall66'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1 -1 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall67'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0.75 -0.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall68'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0.75 0.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall69'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="0.75 1.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall70'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1 1.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall71'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1 2 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall72'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1.5 -2.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall73'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1.5 -2 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall74'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1.25 -0.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall75'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1.25 -0.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall76'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1.5 0 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall77'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1.25 0.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall78'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1.5 0.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall79'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1.5 1 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall80'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1.5 2 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall81'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="2 -2.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall82'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="2.25 -2.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall83'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="2 -2 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall84'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="2.25 -1.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall85'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1.75 -1.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall86'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="2 -1.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall87'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="2.25 -1.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall88'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1.75 -0.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall89'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="2.25 -0.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall90'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1.75 -0.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall91'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="2.25 -0.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall92'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="2.25 0.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall93'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="2.25 0.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall94'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="1.75 1.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall95'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="2.25 1.25 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall96'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="2 1.5 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall97'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="2.25 1.75 0.15" rpy="0 0 0"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name='wall98'>
+		<visual name='visual'>
+			<geometry>
+				<box size="0.05 0.55 0.3"/>
+			</geometry>
+			<origin xyz="2 2 0.15" rpy="0 0 1.57"/>
+			<material name="white"/>
+		</visual>
+	    <inertial>
+			<mass>1.0</mass>
+		</inertial>
+		<collision name='collision'>
+			<geometry>
+				<box>
+					<size>0.05 0.55 0.3</size>
+				</box>
+			</geometry>
+		</collision>
+	</link>
+
+	<joint name="walls_to_world1" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall1"/>
+ </joint>
+
+	<joint name="walls_to_world2" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall2"/>
+ </joint>
+
+	<joint name="walls_to_world3" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall3"/>
+ </joint>
+
+	<joint name="walls_to_world4" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall4"/>
+ </joint>
+
+	<joint name="walls_to_world5" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall5"/>
+ </joint>
+
+	<joint name="walls_to_world6" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall6"/>
+ </joint>
+
+	<joint name="walls_to_world7" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall7"/>
+ </joint>
+
+	<joint name="walls_to_world8" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall8"/>
+ </joint>
+
+	<joint name="walls_to_world9" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall9"/>
+ </joint>
+
+	<joint name="walls_to_world10" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall10"/>
+ </joint>
+
+	<joint name="walls_to_world11" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall11"/>
+ </joint>
+
+	<joint name="walls_to_world12" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall12"/>
+ </joint>
+
+	<joint name="walls_to_world13" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall13"/>
+ </joint>
+
+	<joint name="walls_to_world14" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall14"/>
+ </joint>
+
+	<joint name="walls_to_world15" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall15"/>
+ </joint>
+
+	<joint name="walls_to_world16" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall16"/>
+ </joint>
+
+	<joint name="walls_to_world17" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall17"/>
+ </joint>
+
+	<joint name="walls_to_world18" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall18"/>
+ </joint>
+
+	<joint name="walls_to_world19" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall19"/>
+ </joint>
+
+	<joint name="walls_to_world20" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall20"/>
+ </joint>
+
+	<joint name="walls_to_world21" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall21"/>
+ </joint>
+
+	<joint name="walls_to_world22" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall22"/>
+ </joint>
+
+	<joint name="walls_to_world23" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall23"/>
+ </joint>
+
+	<joint name="walls_to_world24" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall24"/>
+ </joint>
+
+	<joint name="walls_to_world25" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall25"/>
+ </joint>
+
+	<joint name="walls_to_world26" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall26"/>
+ </joint>
+
+	<joint name="walls_to_world27" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall27"/>
+ </joint>
+
+	<joint name="walls_to_world28" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall28"/>
+ </joint>
+
+	<joint name="walls_to_world29" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall29"/>
+ </joint>
+
+	<joint name="walls_to_world30" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall30"/>
+ </joint>
+
+	<joint name="walls_to_world31" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall31"/>
+ </joint>
+
+	<joint name="walls_to_world32" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall32"/>
+ </joint>
+
+	<joint name="walls_to_world33" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall33"/>
+ </joint>
+
+	<joint name="walls_to_world34" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall34"/>
+ </joint>
+
+	<joint name="walls_to_world35" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall35"/>
+ </joint>
+
+	<joint name="walls_to_world36" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall36"/>
+ </joint>
+
+	<joint name="walls_to_world37" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall37"/>
+ </joint>
+
+	<joint name="walls_to_world38" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall38"/>
+ </joint>
+
+	<joint name="walls_to_world39" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall39"/>
+ </joint>
+
+	<joint name="walls_to_world40" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall40"/>
+ </joint>
+
+	<joint name="walls_to_world41" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall41"/>
+ </joint>
+
+	<joint name="walls_to_world42" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall42"/>
+ </joint>
+
+	<joint name="walls_to_world43" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall43"/>
+ </joint>
+
+	<joint name="walls_to_world44" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall44"/>
+ </joint>
+
+	<joint name="walls_to_world45" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall45"/>
+ </joint>
+
+	<joint name="walls_to_world46" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall46"/>
+ </joint>
+
+	<joint name="walls_to_world47" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall47"/>
+ </joint>
+
+	<joint name="walls_to_world48" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall48"/>
+ </joint>
+
+	<joint name="walls_to_world49" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall49"/>
+ </joint>
+
+	<joint name="walls_to_world50" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall50"/>
+ </joint>
+
+	<joint name="walls_to_world51" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall51"/>
+ </joint>
+
+	<joint name="walls_to_world52" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall52"/>
+ </joint>
+
+	<joint name="walls_to_world53" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall53"/>
+ </joint>
+
+	<joint name="walls_to_world54" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall54"/>
+ </joint>
+
+	<joint name="walls_to_world55" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall55"/>
+ </joint>
+
+	<joint name="walls_to_world56" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall56"/>
+ </joint>
+
+	<joint name="walls_to_world57" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall57"/>
+ </joint>
+
+	<joint name="walls_to_world58" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall58"/>
+ </joint>
+
+	<joint name="walls_to_world59" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall59"/>
+ </joint>
+
+	<joint name="walls_to_world60" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall60"/>
+ </joint>
+
+	<joint name="walls_to_world61" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall61"/>
+ </joint>
+
+	<joint name="walls_to_world62" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall62"/>
+ </joint>
+
+	<joint name="walls_to_world63" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall63"/>
+ </joint>
+
+	<joint name="walls_to_world64" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall64"/>
+ </joint>
+
+	<joint name="walls_to_world65" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall65"/>
+ </joint>
+
+	<joint name="walls_to_world66" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall66"/>
+ </joint>
+
+	<joint name="walls_to_world67" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall67"/>
+ </joint>
+
+	<joint name="walls_to_world68" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall68"/>
+ </joint>
+
+	<joint name="walls_to_world69" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall69"/>
+ </joint>
+
+	<joint name="walls_to_world70" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall70"/>
+ </joint>
+
+	<joint name="walls_to_world71" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall71"/>
+ </joint>
+
+	<joint name="walls_to_world72" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall72"/>
+ </joint>
+
+	<joint name="walls_to_world73" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall73"/>
+ </joint>
+
+	<joint name="walls_to_world74" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall74"/>
+ </joint>
+
+	<joint name="walls_to_world75" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall75"/>
+ </joint>
+
+	<joint name="walls_to_world76" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall76"/>
+ </joint>
+
+	<joint name="walls_to_world77" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall77"/>
+ </joint>
+
+	<joint name="walls_to_world78" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall78"/>
+ </joint>
+
+	<joint name="walls_to_world79" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall79"/>
+ </joint>
+
+	<joint name="walls_to_world80" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall80"/>
+ </joint>
+
+	<joint name="walls_to_world81" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall81"/>
+ </joint>
+
+	<joint name="walls_to_world82" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall82"/>
+ </joint>
+
+	<joint name="walls_to_world83" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall83"/>
+ </joint>
+
+	<joint name="walls_to_world84" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall84"/>
+ </joint>
+
+	<joint name="walls_to_world85" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall85"/>
+ </joint>
+
+	<joint name="walls_to_world86" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall86"/>
+ </joint>
+
+	<joint name="walls_to_world87" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall87"/>
+ </joint>
+
+	<joint name="walls_to_world88" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall88"/>
+ </joint>
+
+	<joint name="walls_to_world89" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall89"/>
+ </joint>
+
+	<joint name="walls_to_world90" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall90"/>
+ </joint>
+
+	<joint name="walls_to_world91" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall91"/>
+ </joint>
+
+	<joint name="walls_to_world92" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall92"/>
+ </joint>
+
+	<joint name="walls_to_world93" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall93"/>
+ </joint>
+
+	<joint name="walls_to_world94" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall94"/>
+ </joint>
+
+	<joint name="walls_to_world95" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall95"/>
+ </joint>
+
+	<joint name="walls_to_world96" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall96"/>
+ </joint>
+
+	<joint name="walls_to_world97" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall97"/>
+ </joint>
+
+	<joint name="walls_to_world98" type="fixed">
+		<parent link="odom"/>
+ 	<child link="wall98"/>
+ </joint>
+
+</robot>

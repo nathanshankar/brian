@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot name="room">
+
+<material name="custom_color">
+  <color rgba="1.0 0.6 0.0 1.0"/>
+</material>
+  <link name="odom_link">
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy="0.000 0.000 0.000"/>
+      <mass value="0.000"/>
+      <inertia
+        ixx="0.00000" ixy="0.00000" ixz="0.00000"
+        iyy="0.00000" iyz="0.00000"
+        izz="0.00000"/>
+    </inertial>
+    <collision>
+      <geometry>
+        <box size="0.000 0.000 0.000"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="wall_0">
+    <visual>
+      <geometry>
+        <box size="4.000 0.200 1.000"/>
+      </geometry>
+      <origin xyz="0.00000 0.00000 0.00000"/>
+      <material name="custom_color"/>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="10000.000"/>
+      <inertia
+        ixx="1000.00000" ixy="1000.00000" ixz="1000.00000"
+        iyy="1000.00000" iyz="1000.00000"
+        izz="1000.00000"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="4.000 0.200 1.000"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="wall_1">
+    <visual>
+      <geometry>
+        <box size="0.200 4.000 1.000"/>
+      </geometry>
+      <origin xyz="0.00000 0.00000 0.00000"/>
+      <material name="custom_color"/>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="10000.000"/>
+      <inertia
+        ixx="1000.00000" ixy="1000.00000" ixz="1000.00000"
+        iyy="1000.00000" iyz="1000.00000"
+        izz="1000.00000"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.200 4.000 1.000"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="wall_2">
+    <visual>
+      <geometry>
+        <box size="1.905 0.200 1.000"/>
+      </geometry>
+      <origin xyz="0.00000 0.00000 0.00000"/>
+      <material name="custom_color"/>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="10000.000"/>
+      <inertia
+        ixx="1000.00000" ixy="1000.00000" ixz="1000.00000"
+        iyy="1000.00000" iyz="1000.00000"
+        izz="1000.00000"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="1.905 0.200 1.000"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="wall_3">
+    <visual>
+      <geometry>
+        <box size="4.000 0.200 1.000"/>
+      </geometry>
+      <origin xyz="0.00000 0.00000 0.00000"/>
+      <material name="custom_color"/>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="10000.000"/>
+      <inertia
+        ixx="1000.00000" ixy="1000.00000" ixz="1000.00000"
+        iyy="1000.00000" iyz="1000.00000"
+        izz="1000.00000"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="4.000 0.200 1.000"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="wall_4">
+    <visual>
+      <geometry>
+        <box size="0.200 0.381 1.000"/>
+      </geometry>
+      <origin xyz="0.00000 0.00000 0.00000"/>
+      <material name="custom_color"/>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="10000.000"/>
+      <inertia
+        ixx="1000.00000" ixy="1000.00000" ixz="1000.00000"
+        iyy="1000.00000" iyz="1000.00000"
+        izz="1000.00000"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.200 0.381 1.000"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="wall_5">
+    <visual>
+      <geometry>
+        <box size="0.200 1.714 1.000"/>
+      </geometry>
+      <origin xyz="0.00000 0.00000 0.00000"/>
+      <material name="custom_color"/>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="10000.000"/>
+      <inertia
+        ixx="1000.00000" ixy="1000.00000" ixz="1000.00000"
+        iyy="1000.00000" iyz="1000.00000"
+        izz="1000.00000"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.200 1.714 1.000"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="wall_6">
+    <visual>
+      <geometry>
+        <box size="0.200 4.000 1.000"/>
+      </geometry>
+      <origin xyz="0.00000 0.00000 0.00000"/>
+      <material name="custom_color"/>
+    </visual>
+    <inertial>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <mass value="10000.000"/>
+      <inertia
+        ixx="1000.00000" ixy="1000.00000" ixz="1000.00000"
+        iyy="1000.00000" iyz="1000.00000"
+        izz="1000.00000"/>
+    </inertial>
+    <collision>
+      <origin xyz="0.000 0.000 0.000" rpy ="0.000 0.000 0.000"/>
+      <geometry>
+        <box size="0.200 4.000 1.000"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+
+
+
+  <joint name="wall_0_joint" type="fixed" dont_collapse="true">
+    <parent link="odom_link"/>
+    <child  link="wall_0"/>
+    <origin xyz="0.00000 -2.00000 0.50000"/>
+  </joint>
+
+  <joint name="wall_1_joint" type="fixed" dont_collapse="true">
+    <parent link="odom_link"/>
+    <child  link="wall_1"/>
+    <origin xyz="-2.00000 0.00000 0.50000"/>
+  </joint>
+
+  <joint name="wall_2_joint" type="fixed" dont_collapse="true">
+    <parent link="odom_link"/>
+    <child  link="wall_2"/>
+    <origin xyz="-1.04762 0.85714 0.50000"/>
+  </joint>
+
+  <joint name="wall_3_joint" type="fixed" dont_collapse="true">
+    <parent link="odom_link"/>
+    <child  link="wall_3"/>
+    <origin xyz="0.00000 2.00000 0.50000"/>
+  </joint>
+
+  <joint name="wall_4_joint" type="fixed" dont_collapse="true">
+    <parent link="odom_link"/>
+    <child  link="wall_4"/>
+    <origin xyz="-0.66667 -1.80952 0.50000"/>
+  </joint>
+
+  <joint name="wall_5_joint" type="fixed" dont_collapse="true">
+    <parent link="odom_link"/>
+    <child  link="wall_5"/>
+    <origin xyz="-0.66667 0.00000 0.50000"/>
+  </joint>
+
+  <joint name="wall_6_joint" type="fixed" dont_collapse="true">
+    <parent link="odom_link"/>
+    <child  link="wall_6"/>
+    <origin xyz="2.00000 0.00000 0.50000"/>
+  </joint>
+
+</robot>

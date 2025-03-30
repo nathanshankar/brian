@@ -1,0 +1,7 @@
+#request constants
+bool connect
+---
+#response constants
+bool result
+
+

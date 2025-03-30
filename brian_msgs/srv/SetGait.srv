@@ -1,0 +1,7 @@
+#request constants
+string gait_filename
+---
+#response constants
+bool result
+string info
+

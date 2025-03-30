@@ -1,0 +1,2066 @@
+<?xml version='1.0'?>
+<sdf version='1.4'>
+	<model name="my_maze">
+		<static>true</static>
+
+
+		<link name='wall1'>
+			<pose>-2.25 -2.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall2'>
+			<pose>-2 -2.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall3'>
+			<pose>-2.25 -1.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall4'>
+			<pose>-2.25 -1.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall5'>
+			<pose>-2.25 -0.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall6'>
+			<pose>-2 -1 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall7'>
+			<pose>-2.25 -0.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall8'>
+			<pose>-2.25 0.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall9'>
+			<pose>-2.25 0.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall10'>
+			<pose>-2 0.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall11'>
+			<pose>-2.25 1.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall12'>
+			<pose>-2.25 1.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall13'>
+			<pose>-2 2 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall14'>
+			<pose>-1.5 -2.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall15'>
+			<pose>-1.5 -2 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall16'>
+			<pose>-1.75 -1.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall17'>
+			<pose>-1.75 -0.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall18'>
+			<pose>-1.5 0 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall19'>
+			<pose>-1.5 0.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall20'>
+			<pose>-1.5 1 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall21'>
+			<pose>-1.5 2 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall22'>
+			<pose>-1 -2.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall23'>
+			<pose>-1.25 -1.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall24'>
+			<pose>-1 -2 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall25'>
+			<pose>-1.25 -0.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall26'>
+			<pose>-1 -1 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall27'>
+			<pose>-1 0 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall28'>
+			<pose>-1 0.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall29'>
+			<pose>-1.25 1.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall30'>
+			<pose>-1.25 1.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall31'>
+			<pose>-1 2 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall32'>
+			<pose>-0.5 -2.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall33'>
+			<pose>-0.75 -1.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall34'>
+			<pose>-0.5 -2 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall35'>
+			<pose>-0.75 -0.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall36'>
+			<pose>-0.5 -0.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall37'>
+			<pose>-0.75 0.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall38'>
+			<pose>-0.5 0 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall39'>
+			<pose>-0.75 0.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall40'>
+			<pose>-0.75 1.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall41'>
+			<pose>-0.5 1.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall42'>
+			<pose>-0.5 2 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall43'>
+			<pose>0 -2.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall44'>
+			<pose>-0.25 -1.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall45'>
+			<pose>0 -2 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall46'>
+			<pose>-0.25 -0.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall47'>
+			<pose>0 0 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall48'>
+			<pose>-0.25 0.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall49'>
+			<pose>0 0.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall50'>
+			<pose>0 2 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall51'>
+			<pose>0.5 -2.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall52'>
+			<pose>0.5 -2 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall53'>
+			<pose>0.5 -1.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall54'>
+			<pose>0.25 -0.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall55'>
+			<pose>0.5 -0.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall56'>
+			<pose>0.25 0.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall57'>
+			<pose>0.5 0 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall58'>
+			<pose>0.5 0.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall59'>
+			<pose>0.25 1.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall60'>
+			<pose>0.5 1 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall61'>
+			<pose>0.5 2 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall62'>
+			<pose>1 -2.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall63'>
+			<pose>1 -2 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall64'>
+			<pose>0.75 -1.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall65'>
+			<pose>1 -1.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall66'>
+			<pose>1 -1 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall67'>
+			<pose>0.75 -0.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall68'>
+			<pose>0.75 0.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall69'>
+			<pose>0.75 1.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall70'>
+			<pose>1 1.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall71'>
+			<pose>1 2 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall72'>
+			<pose>1.5 -2.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall73'>
+			<pose>1.5 -2 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall74'>
+			<pose>1.25 -0.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall75'>
+			<pose>1.25 -0.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall76'>
+			<pose>1.5 0 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall77'>
+			<pose>1.25 0.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall78'>
+			<pose>1.5 0.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall79'>
+			<pose>1.5 1 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall80'>
+			<pose>1.5 2 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall81'>
+			<pose>2 -2.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall82'>
+			<pose>2.25 -2.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall83'>
+			<pose>2 -2 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall84'>
+			<pose>2.25 -1.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall85'>
+			<pose>1.75 -1.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall86'>
+			<pose>2 -1.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall87'>
+			<pose>2.25 -1.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall88'>
+			<pose>1.75 -0.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall89'>
+			<pose>2.25 -0.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall90'>
+			<pose>1.75 -0.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall91'>
+			<pose>2.25 -0.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall92'>
+			<pose>2.25 0.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall93'>
+			<pose>2.25 0.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall94'>
+			<pose>1.75 1.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall95'>
+			<pose>2.25 1.25 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall96'>
+			<pose>2 1.5 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall97'>
+			<pose>2.25 1.75 0.15 0 0 0</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+		<link name='wall98'>
+			<pose>2 2 0.15 0 0 1.57</pose>
+			<inertial>
+				<mass>1.0</mass>
+			</inertial>
+			<collision name='collision'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</collision>
+			<visual name='visual'>
+				<geometry>
+					<box>
+						<size>0.05 0.55 0.3</size>
+					</box>
+				</geometry>
+			</visual>
+		</link>
+
+	</model>
+</sdf>

@@ -1,0 +1,5 @@
+#request constants
+string  style
+float32 blink_prob
+---
+#response constants
