@@ -1,2 +1,3 @@
 std_msgs/Header header
-bool[] feet_stance
+bool[4] feet_stance
+bool collided_with_obstacle
