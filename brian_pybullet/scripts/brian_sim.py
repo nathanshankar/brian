@@ -4,10 +4,9 @@ import pybullet as pb
 import time
 import numpy as np
 from scipy.spatial.transform import Rotation as R
-from rclpy.node import Node
+from rclpy.node import Node # Keep this import for simpleLog's `super().__init__` if you use it
 
-
-class simpleLog:
+class simpleLog: # Your simpleLog class remains the same
     def debug(self, msg):
         print('DEBUG: {:s}'.format(msg))
 
@@ -21,36 +20,67 @@ class simpleLog:
         print('ERROR: {:s}'.format(msg))
 
 
-class brianSim(Node):
+class brianSim(): # <--- REMOVE (Node) INHERITANCE HERE. brian_sim should NOT be a ROS node itself.
+                   # Only brianPybullet should be the node.
     def __init__(self, urdf_dir, startPos, start_euler, ground, logging=None, rgba=[0.2, 0.2, 0.2, 1]):
-        super().__init__('brian_sim')
+        # super().__init__('brian_sim') # <--- REMOVE THIS LINE
         self.urdf_dir = urdf_dir
         self.startPos = startPos
         self.startOri = np.array(start_euler) * np.pi / 180
         self.ground = ground
-
-        self.robot = pb.loadURDF(urdf_dir, self.startPos, pb.getQuaternionFromEuler(self.startOri))
-        self.num_joints = pb.getNumJoints(self.robot)
-
-        for i in range(-1, self.num_joints):
-            pb.changeVisualShape(self.robot, i, rgbaColor=rgba)
+        self.rgba = rgba # Store rgba for reset
 
         if logging is not None:
             self.logging = logging
         else:
-            self.logging = simpleLog()
+            # Create a simpleLog instance if no logging is provided
+            self.logging = simpleLog() 
+
+        # Load the robot initially
+        self.robot = self._load_robot()
+        self.num_joints = pb.getNumJoints(self.robot)
+        self._colorize_robot()
 
         self.prev_lin_vel = [0, 0, 0]
         self.prev_ang_vel = [0, 0, 0]
-
         self.timer = time.time()
 
         names = self.getJointNames()
         self.index_revolute_joints = []
-
         for i in range(len(names)):
             if 'hip' in names[i] or 'knee' in names[i]:
                 self.index_revolute_joints.append(i)
+
+    def _load_robot(self):
+        """Internal helper to load the robot."""
+        robot_id = pb.loadURDF(self.urdf_dir, self.startPos, pb.getQuaternionFromEuler(self.startOri))
+        return robot_id
+
+    def _colorize_robot(self):
+        """Internal helper to color the robot."""
+        for i in range(-1, pb.getNumJoints(self.robot)): # Use pb.getNumJoints(self.robot) in case num_joints isn't updated
+            pb.changeVisualShape(self.robot, i, rgbaColor=self.rgba)
+
+    def reset_robot(self):
+        """Resets the robot to its initial position and orientation in PyBullet."""
+        self.logging.info("Removing old robot and loading new one...")
+        if self.robot is not None:
+            try:
+                pb.removeBody(self.robot)
+                self.logging.info(f"Successfully removed old robot (ID: {self.robot}).")
+            except pb.error as e:
+                self.logging.error(f"Error removing old robot: {e}")
+        
+        # Load the new robot
+        self.robot = self._load_robot()
+        self.num_joints = pb.getNumJoints(self.robot) # Update num_joints for the new robot
+        self._colorize_robot()
+
+        # Reset any other necessary internal states
+        self.prev_lin_vel = [0, 0, 0]
+        self.prev_ang_vel = [0, 0, 0]
+        self.timer = time.time()
+        self.logging.info(f"New robot loaded (ID: {self.robot}).")
 
     def getJointNames(self):
         joint_infos = [pb.getJointInfo(self.robot, i) for i in range(self.num_joints)]

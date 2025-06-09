@@ -14,6 +14,7 @@ from sensor_msgs.msg import JointState, Imu, LaserScan
 from brian_msgs.msg import ContactDetection
 from nav_msgs.msg import Odometry # Added for base position
 from std_srvs.srv import Empty  # Import Empty service for reset
+from std_srvs.srv import SetBool
 
 class BrianGymEnv(gym.Env):
     """
@@ -27,6 +28,13 @@ class BrianGymEnv(gym.Env):
         # DO NOT call rclpy.init() here. It's called once in the training script.
         self.ros_node = Node('brian_gym_env_node')
         self.callback_group = ReentrantCallbackGroup()
+
+        self.set_logging_client = self.ros_node.create_client(SetBool, '/brian/set_logging')
+        self.ros_node.get_logger().info("Waiting for /brian/set_logging service...")
+        while not self.set_logging_client.wait_for_service(timeout_sec=1.0):
+            self.ros_node.get_logger().info('set_logging service not available, waiting again...')
+        self.ros_node.get_logger().info("Set logging service available.")
+
 
         qos_profile = QoSProfile(
             reliability=ReliabilityPolicy.BEST_EFFORT,
@@ -116,6 +124,29 @@ class BrianGymEnv(gym.Env):
         # Wait for initial data to populate
         self._wait_for_initial_data()
 
+    def _start_logging(self, filename=""):
+        """Starts PyBullet state logging."""
+        request = SetBool.Request()
+        request.data = True
+        future = self.set_logging_client.call_async(request)
+        rclpy.spin_until_future_complete(self.ros_node, future, executor=self.executor)
+        if future.result() is not None:
+            self.ros_node.get_logger().info(f"PyBullet logging started: {future.result().message}")
+            return future.result().message # Returns the file path
+        else:
+            self.ros_node.get_logger().error(f"Failed to start logging: {future.exception()}")
+            return None
+
+    def _stop_logging(self):
+        """Stops PyBullet state logging."""
+        request = SetBool.Request()
+        request.data = False
+        future = self.set_logging_client.call_async(request)
+        rclpy.spin_until_future_complete(self.ros_node, future, executor=self.executor)
+        if future.result() is not None:
+            self.ros_node.get_logger().info(f"PyBullet logging stopped: {future.result().message}")
+        else:
+            self.ros_node.get_logger().error(f"Failed to stop logging: {future.exception()}")
 
     def _wait_for_initial_data(self):
         self.ros_node.get_logger().info("Waiting for initial sensor data...")

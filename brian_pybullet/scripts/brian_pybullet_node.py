@@ -8,12 +8,13 @@ import pybullet as pb
 import time
 import pybullet_data
 import numpy as np
-from brian_sim import brianSim
+from brian_sim import brianSim, simpleLog # <--- Import simpleLog now
 
 from sensor_msgs.msg import JointState, Imu, LaserScan
 from brian_msgs.msg import ContactDetection
-from nav_msgs.msg import Odometry # New import for base position
-from std_srvs.srv import Empty # For reset service
+from nav_msgs.msg import Odometry 
+from std_srvs.srv import Empty 
+from std_srvs.srv import SetBool
 
 class brianPybullet(Node):
     def __init__(self, urdf_dir, robot_name):
@@ -23,32 +24,39 @@ class brianPybullet(Node):
         # PyBullet setup
         pb.setTimeStep(0.001)
         pb.setGravity(0, 0, -9.8)
-        self.plane = pb.loadURDF("plane.urdf", [0, 0, 0]) # Keep ground reference for feet contact
+        self.plane = pb.loadURDF("plane.urdf", [0, 0, 0]) 
 
         # Load room (obstacles)
         room_urdf_dir = "/home/nathan/brian/install/brian_pybullet/share/brian_pybullet/worlds/room.urdf"
-        # self.get_logger().error(room_urdf_dir) # Debug: remove this line after verifying path
-        self.room_id = pb.loadURDF(room_urdf_dir, [0.0, 0.0, 0]) # Store room_id
+        self.room_id = pb.loadURDF(room_urdf_dir, [0.0, 0.0, 0]) 
 
         pb.changeDynamics(self.plane, -1, lateralFriction=1, spinningFriction=0.01, rollingFriction=0.01)
 
-        self.start_pos = [0, 0, 0.26] # Store initial pos for reset
-        self.start_ori_euler = [0, 0, 0] # Store initial ori for reset
-        self.brian = brianSim(urdf_dir, self.start_pos, self.start_ori_euler, self.plane)
+        self.start_pos = [0, 0, 0.26] 
+        self.start_ori_euler = [0, 0, 0] 
         
+        # Pass the node's logger to brianSim for consistent logging
+        # Or, you can use simpleLog if you prefer the print output.
+        # For a ROS2 node, it's better to use the ROS2 logger.
+        # Create a simpleLog instance here to pass to brianSim
+        brian_sim_logger = simpleLog() # Using your simpleLog
+        # brian_sim_logger = self.get_logger() # Option: Use ROS2 logger
+
+        self.brian = brianSim(urdf_dir, self.start_pos, self.start_ori_euler, self.plane, logging=brian_sim_logger)
+
         # Initialize ROS 2 messages
         self.jointStateMsg = JointState()
-        self.jointStateMsg.name = list(self.brian.getRevoluteJointNames()) # Populate joint names once
+        self.jointStateMsg.name = list(self.brian.getRevoluteJointNames()) 
         self.feet_contact = np.zeros(4, dtype='bool')
         self.contact_det_msg = ContactDetection()
-        self.imu_msg = Imu() # Pre-allocate Imu message
-        self.odom_msg = Odometry() # New Odometry message
-        self.laser_scan_msg = LaserScan() # Pre-allocate LaserScan message
+        self.imu_msg = Imu() 
+        self.odom_msg = Odometry() 
+        self.laser_scan_msg = LaserScan() 
 
         # ROS 2 Publishers
         self.jointStatePub = self.create_publisher(JointState, f'/{robot_name}/joints_state', 10)
         self.robotImuPub = self.create_publisher(Imu, f'/{robot_name}/imu_data', 10)
-        self.robotOdomPub = self.create_publisher(Odometry, f'/{robot_name}/odom_data', 10) # NEW ODOM PUBLISHER
+        self.robotOdomPub = self.create_publisher(Odometry, f'/{robot_name}/odom_data', 10) 
         self.contactDetectionPub = self.create_publisher(ContactDetection, f'/{robot_name}/contact_detection', 10)
         self.laserScanPub = self.create_publisher(LaserScan, '/scan', 10)
 
@@ -57,19 +65,57 @@ class brianPybullet(Node):
         
         # ROS 2 Service for Reset
         self.reset_service = self.create_service(Empty, '/brian/reset_sim', self.reset_sim_callback)
+        self.log_state_client = None # Will be set during logging
+        self.log_file_path = ""
+        self.logging_service = self.create_service(SetBool, '/brian/set_logging', self.set_logging_callback)
+
 
         # Main simulation timer
-        self.timer = self.create_timer(0.001, self.mainThread) # Runs at 1000 Hz
+        self.timer = self.create_timer(0.001, self.mainThread)
 
+
+    def set_logging_callback(self, request, response):
+        """ROS 2 Service callback to start/stop PyBullet state logging."""
+        if request.data: # True to start logging
+            if self.log_state_client is not None:
+                self.get_logger().warn("PyBullet state logging already active. Stopping previous log.")
+                pb.stopStateLogging(self.log_state_client)
+            
+            # Create a unique filename for the log
+            timestamp = time.strftime("%Y%m%d-%H%M%S")
+            self.log_file_path = f"/tmp/brian_sim_log_{timestamp}.bullet" # Save to /tmp or a dedicated log folder
+            
+            self.get_logger().info(f"Starting PyBullet state logging to {self.log_file_path}")
+            # pb.ER_BULLET_VISUALIZER_GUI makes it record GUI-specific events, potentially making playback smoother
+            # pb.ER_BULLET_FILE_SAVE_MP4 for direct mp4, but often requires ffmpeg and specific GUI connections.
+            # Using FILE_LOG for .bullet files which are playbackable.
+            self.log_state_client = pb.startStateLogging(pb.STATE_LOGGING_VIDEO_MP4, self.log_file_path) # Changed to MP4
+            # If MP4 causes issues, revert to: pb.startStateLogging(pb.STATE_LOGGING_GENERIC_FILE, self.log_file_path)
+            # The VIDEO_MP4 option will attempt to create an MP4 directly, but note it might not always work in DIRECT mode.
+            # For guaranteed MP4, you usually play back the .bullet in a GUI and record that.
+            
+            response.success = True
+            response.message = f"Started logging to {self.log_file_path}"
+        else: # False to stop logging
+            if self.log_state_client is not None:
+                self.get_logger().info(f"Stopping PyBullet state logging from {self.log_file_path}")
+                pb.stopStateLogging(self.log_state_client)
+                self.log_state_client = None
+                response.success = True
+                response.message = f"Stopped logging from {self.log_file_path}"
+            else:
+                self.get_logger().warn("PyBullet state logging not active. Cannot stop.")
+                response.success = False
+                response.message = "Logging not active."
+        return response
+    
     def reset_sim_callback(self, request, response):
         """ROS 2 Service callback to reset the simulation."""
         self.get_logger().info("Resetting PyBullet simulation...")
         
-        # Clear existing robot
-        pb.removeBody(self.brian.robot) 
+        # Call the reset_robot method of the brianSim instance
+        self.brian.reset_robot()
         
-        # Reload robot to initial state
-        self.brian = brianSim(self.brian.urdf_dir, self.start_pos, self.start_ori_euler, self.plane)
         # Optionally, reset the room's position if it's dynamic
         # pb.resetBasePositionAndOrientation(self.room_id, [0.0, 0.0, 0], [0, 0, 0, 1])
 
@@ -77,7 +123,7 @@ class brianPybullet(Node):
         self.feet_contact = np.zeros(4, dtype='bool')
 
         self.get_logger().info("PyBullet simulation reset complete.")
-        return response # Return an empty response for Empty service
+        return response 
 
     def jointControlCB(self, data):
         # The `velocity` argument in `setJointPosition` is not used in brian_sim.py
@@ -213,20 +259,20 @@ def main(args=None):
     rclpy.init(args=args)
 
     robot_name = "brian"
-    # Make sure this path is correct for your installation
     urdf_dir = "/home/nathan/brian/install/brian_description/share/brian_description/urdf/brian.urdf"
 
-    node = rclpy.create_node('parameter_loader') # Temp node to get parameters
+    node = rclpy.create_node('parameter_loader')
     node.declare_parameter('robot_name', robot_name)
     node.declare_parameter('urdf_path', urdf_dir)
 
     robot_name = node.get_parameter('robot_name').value
     urdf_dir = node.get_parameter('urdf_path').value
 
-    node.destroy_node() # Destroy temp node
+    node.destroy_node()
 
-    pb.connect(pb.GUI) # Connect in GUI mode for visualization
-    pb.setAdditionalSearchPath(pybullet_data.getDataPath()) 
+    # Change this line:
+    pb.connect(pb.DIRECT) # <--- Changed from pb.GUI to pb.DIRECT
+    pb.setAdditionalSearchPath(pybullet_data.getDataPath())
 
     brian_node = brianPybullet(urdf_dir, robot_name)
 
