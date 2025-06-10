@@ -1,137 +1,168 @@
-# train_brian.py (MODIFIED - Corrected CustomEvalAndVideoCallback)
 #!/usr/bin/env -S python3
 
 import os
 import rclpy
 import gymnasium as gym
+from gymnasium.wrappers import RecordVideo # Import RecordVideo
 from stable_baselines3 import PPO
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.monitor import Monitor
-from stable_baselines3.common.callbacks import CheckpointCallback, EvalCallback
+from stable_baselines3.common.callbacks import CheckpointCallback, EvalCallback, StopTrainingOnRewardThreshold
+import inspect
+import sys
 
 from brian_rl_env.brian_gym_env import BrianGymEnv # Import your custom env
 
 
+# --- Configuration Constants ---
+os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2"
+
+WALKING_REWARD_THRESHOLD = 5000.0
+HUGE_TOTAL_TIMESTEPS = 100_000_000
+EVAL_FREQ = 5000
+VIDEO_RECORD_FREQ_EPOCHS = 10 # Record a video every 10 evaluation runs
+
+N_ENVS_TRAINING = 8
+
+# Training Hyperparameters
+LEARNING_RATE = 3e-4
+N_STEPS = 2048
+BATCH_SIZE = 64
+N_EPOCHS_PPO = 10
+GAMMA = 0.99
+GAE_LAMBDA = 0.95
+CLIP_RANGE = 0.2
+ENT_COEF = 0.01
+
+# Define the video save directory
+VIDEO_SAVE_DIR = "/root/Documents/brian_ws/src/brian_rl_env/video"
+os.makedirs(VIDEO_SAVE_DIR, exist_ok=True) # Ensure the directory exists
+
+# --- Custom Callbacks ---
+
 class CustomEvalAndVideoCallback(EvalCallback):
     def __init__(self, eval_env, best_model_save_path, log_path, eval_freq,
-                 deterministic=True, render_freq_epochs=100, verbose=1):
+                 deterministic=True, render_freq_epochs=10, video_save_folder="", verbose=1):
         super().__init__(eval_env, best_model_save_path=best_model_save_path,
                          log_path=log_path, eval_freq=eval_freq,
                          deterministic=deterministic,
-                         # REMOVED: render_freq=1, # This argument is not valid for EvalCallback.__init__
                          verbose=verbose)
         self.render_freq_epochs = render_freq_epochs
-        self.current_epoch_count = 0 # Track epochs to trigger video saving
+        self.current_epoch_count = 0
+        self.video_save_folder = video_save_folder # Store the video save folder
+
+        print(f"DEBUG_CB_INIT: Initial eval_env type IN CALLBACK INIT: {type(eval_env)}")
+        print(f"DEBUG_CB_INIT: Initial eval_env is Monitor? {isinstance(eval_env, Monitor)}")
+        if isinstance(eval_env, Monitor):
+            print(f"DEBUG_CB_INIT: Unwrapped type: {type(eval_env.env)}")
+            print(f"DEBUG_CB_INIT: Unwrapped is BrianGymEnv? {isinstance(eval_env.env, BrianGymEnv)}")
+            # If wrapped by Monitor, check the next layer for RecordVideo
+            if isinstance(eval_env.env, RecordVideo):
+                print(f"DEBUG_CB_INIT: Unwrapped (Monitor.env) is RecordVideo.")
+                print(f"DEBUG_CB_INIT: Unwrapped (Monitor.env.env) type: {type(eval_env.env.env)}")
+                print(f"DEBUG_CB_INIT: Unwrapped (Monitor.env.env) is BrianGymEnv? {isinstance(eval_env.env.env, BrianGymEnv)}")
+
 
     def _on_step(self) -> bool:
-        """
-        This method is called by the Stable Baselines3 agent after each training step.
-        """
-        # Call the parent _on_step to handle standard evaluation logic
         continue_training = super()._on_step()
 
-        # Check if it's time for a full evaluation and video recording
-        # The `eval_freq` in EvalCallback refers to `total_timesteps`
-        # We need to link this to the concept of "epochs" or number of evaluation runs.
-        # Let's use `self.num_timesteps` from the parent class and the `eval_freq`.
-        if self.eval_freq > 0 and self.n_calls % self.eval_freq == 0:
+        # Check if it's time for a full evaluation based on total timesteps,
+        # and if it is, increment our internal epoch counter.
+        if self.eval_freq > 0 and self.num_timesteps % self.eval_freq == 0:
             self.current_epoch_count += 1
             if self.current_epoch_count % self.render_freq_epochs == 0:
-                self._record_evaluation_video()
+                self.logger.info(f"Triggering video recording for evaluation epoch {self.current_epoch_count} "
+                                 f"at {self.num_timesteps} total timesteps.")
+                # The video recording is handled by the RecordVideo wrapper itself.
+                # We just need to make sure the environment is reset and steps are taken.
+                # The EvalCallback will automatically call step/reset on the wrapped env.
+                pass # No explicit call needed here because RecordVideo handles it on reset/step
 
         return continue_training
 
-    def _record_evaluation_video(self):
-        self.logger.info(f"Epoch {self.current_epoch_count}: Starting video recording for evaluation...")
-
-        # Cast eval_env to BrianGymEnv (assuming n_envs=1 for eval_env)
-        # Note: If you use make_vec_env for eval, you'll need to access envs[0]
-        # For simplicity, ensure eval_env is a single BrianGymEnv instance
-        if isinstance(self.eval_env, Monitor): # Unwrap Monitor if present
-            env_to_record = self.eval_env.env # Access the underlying env
-        else:
-            env_to_record = self.eval_env
-
-        if not isinstance(env_to_record, BrianGymEnv):
-            self.logger.error("Evaluation environment is not BrianGymEnv. Cannot record video.")
-            return
-
-        # Start logging in the PyBullet node via the service
-        # The log file path will be printed by the brian_pybullet_node itself
-        log_file_path = env_to_record._start_logging() 
-        if log_file_path is None:
-            self.logger.error("Failed to start logging, skipping video recording.")
-            return
-        
-        # Give some time for the logging to capture an actual episode or a few steps
-        # The EvalCallback will run a few episodes as part of its _on_step logic.
-        # We assume the logging will capture this.
-        # A more robust solution might involve:
-        # 1. Resetting the environment after starting logging.
-        # 2. Running a fixed number of steps (e.g., 500 steps) in the evaluation environment.
-        # 3. Then stopping logging.
-        # For now, we are piggybacking on the EvalCallback's default evaluation run.
-        # So, the duration of the logged video corresponds to the evaluation episodes.
-
-        # Wait a moment for PyBullet to start capturing frames, if necessary
-        # time.sleep(0.1) # Optional, can add a small delay if the start of log is too fast
-
-        # Stop logging
-        env_to_record._stop_logging()
-        self.logger.info(f"Video logging complete for epoch {self.current_epoch_count}. Saved to: {log_file_path}")
-        self.logger.info("To view, open PyBullet GUI and use: `pb.createVisualizer(pb.ER_BULLET_GUI); pb.configureDebugVisualizer(pb.COV_ENABLE_GUI,0); pb.startStateLogging(pb.STATE_LOGGING_VIDEO_PLAYBACK, 'YOUR_LOG_FILE.bullet')`")
+    # Removed _record_evaluation_video as RecordVideo wrapper handles this.
+    # The EvalCallback will automatically trigger reset() on eval_env_for_callback
+    # which is wrapped with RecordVideo, starting a new video recording.
 
 
 def main():
-    rclpy.init(args=None) 
+    rclpy.init(args=None)
+
+    print(f"DEBUG_MAIN: sys.executable: {sys.executable}")
+    print(f"DEBUG_MAIN: sys.path: {sys.path}")
+    print("DEBUG_MAIN: This is the VERIFIED version of train_brian.py with the eval_env_single fix.")
 
     log_dir = "./brian_ppo_logs"
     os.makedirs(log_dir, exist_ok=True)
 
-    # For training, use n_envs > 1 for speed (e.g., 4 or 8 if you have cores)
-    # No render_mode for headless training envs
-    env = make_vec_env(BrianGymEnv, n_envs=4, seed=0, # <--- Changed n_envs to 4 for speed
+    print(f"DEBUG_MAIN: Before make_vec_env. Current type of BrianGymEnv class for make_vec_env: {BrianGymEnv}")
+
+    train_env = make_vec_env(BrianGymEnv, n_envs=N_ENVS_TRAINING, seed=0,
                        monitor_dir=log_dir,
-                       wrapper_kwargs=dict(robot_name='brian')) 
+                       wrapper_kwargs=dict(robot_name='brian'))
+
+    print(f"DEBUG_MAIN: train_env type after make_vec_env: {type(train_env)}")
 
     checkpoint_callback = CheckpointCallback(
-        save_freq=100000, save_path=log_dir, name_prefix="brian_model"
+        save_freq=EVAL_FREQ,
+        save_path=log_dir,
+        name_prefix="brian_model"
     )
 
-    # Eval env should be a single instance, and it should be wrapped with Monitor
-    # No render_mode for eval env by default, as we're doing state logging, not direct rendering.
-    eval_env = Monitor(BrianGymEnv(robot_name='brian')) 
-    
-    # Use the custom callback
-    eval_and_video_callback = CustomEvalAndVideoCallback(eval_env,
+    print(f"DEBUG_MAIN: About to define eval_env_single. Current type of BrianGymEnv class for eval_env_single: {BrianGymEnv}")
+
+    # --- CRITICAL FIX: Create a SEPARATE, SINGLE environment for evaluation. ---
+    # Wrap BrianGymEnv with RecordVideo first, then with Monitor.
+    # RecordVideo needs to be directly above BrianGymEnv to access its render() method.
+    eval_env_raw = BrianGymEnv(robot_name='brian', render_mode='rgb_array') # Important: Set render_mode for video
+    eval_env_wrapped_with_video = RecordVideo(
+        eval_env_raw,
+        video_folder=VIDEO_SAVE_DIR,
+        episode_trigger=lambda x: x % VIDEO_RECORD_FREQ_EPOCHS == 0, # Record every N episodes
+        name_prefix="brian_eval_video"
+    )
+    eval_env_for_callback = Monitor(eval_env_wrapped_with_video) # Monitor the video-wrapped env
+
+    print(f"DEBUG_MAIN: eval_env_for_callback type after definition: {type(eval_env_for_callback)}")
+
+    eval_and_video_callback = CustomEvalAndVideoCallback(eval_env_for_callback,
                                                          best_model_save_path=log_dir,
                                                          log_path=log_dir,
-                                                         eval_freq=50000, # Eval every 50k timesteps
+                                                         eval_freq=EVAL_FREQ,
                                                          deterministic=True,
-                                                         render_freq_epochs=100 # <--- Set to 100 for your requirement
+                                                         render_freq_epochs=VIDEO_RECORD_FREQ_EPOCHS,
+                                                         video_save_folder=VIDEO_SAVE_DIR # Pass the video folder
                                                         )
+
+    early_stop_callback = StopTrainingOnRewardThreshold(
+        reward_threshold=WALKING_REWARD_THRESHOLD,
+        verbose=1
+    )
+
+    eval_and_video_callback.callback_on_eval = early_stop_callback
+
 
     model = PPO(
         "MlpPolicy",
-        env,
+        train_env,
         verbose=1,
-        learning_rate=3e-4,
-        n_steps=2048, # Consider increasing slightly for more data per update (e.g., 4096)
-        batch_size=64,
-        n_epochs=10,
-        gamma=0.99,
+        learning_rate=LEARNING_RATE,
+        n_steps=N_STEPS,
+        batch_size=BATCH_SIZE,
+        n_epochs=N_EPOCHS_PPO,
+        gamma=GAMMA,
         gae_lambda=0.95,
         clip_range=0.2,
         ent_coef=0.01,
         tensorboard_log="./brian_ppo_tensorboard/",
-        device="cuda" # <--- IMPORTANT: Changed to "cuda"
+        device="cuda"
     )
 
     print("Starting training...")
     try:
         model.learn(
-            total_timesteps=5_000_000,
-            callback=[checkpoint_callback, eval_and_video_callback], # Use the custom callback
+            total_timesteps=HUGE_TOTAL_TIMESTEPS,
+            callback=[checkpoint_callback, eval_and_video_callback],
             progress_bar=True
         )
         print("Training finished.")
@@ -141,8 +172,8 @@ def main():
     except KeyboardInterrupt:
         print("Training interrupted.")
     finally:
-        env.close()
-        eval_env.close()
+        train_env.close()
+        eval_env_for_callback.close()
         rclpy.shutdown()
 
 if __name__ == "__main__":

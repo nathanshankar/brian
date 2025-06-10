@@ -10,8 +10,6 @@
   <depend>rclpy</depend>
   <depend>sensor_msgs</depend>
   <depend>brian_msgs</depend>
-  <depend>gymnasium</depend>
-  <depend>stable_baselines3</depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
