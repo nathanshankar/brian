@@ -98,8 +98,8 @@ class BrianGymEnv(gym.Env):
         self.action_space = spaces.Box(low=-1.0, high=1.0, shape=(12,), dtype=np.float32)
 
         # Define camera resolution expected from the PyBullet node
-        self.expected_camera_height = 240
-        self.expected_camera_width = 320
+        self.expected_camera_height = 480
+        self.expected_camera_width = 640
 
         self.observation_space = spaces.Box(
             low=-np.inf, high=np.inf, shape=(404,), dtype=np.float32
@@ -112,10 +112,8 @@ class BrianGymEnv(gym.Env):
 
         # ROS 2 Service client for Reset
         self.reset_client = self.ros_node.create_client(Empty, '/brian/reset_sim')
-        self.ros_node.get_logger().info("Waiting for /brian/reset_sim service...")
         while not self.reset_client.wait_for_service(timeout_sec=1.0):
             self.ros_node.get_logger().info('reset service not available, waiting again...')
-        self.ros_node.get_logger().info("Reset service available.")
 
         self.executor = rclpy.executors.SingleThreadedExecutor()
         self.executor.add_node(self.ros_node)
@@ -124,7 +122,6 @@ class BrianGymEnv(gym.Env):
         self._wait_for_initial_data()
 
     def _wait_for_initial_data(self):
-        self.ros_node.get_logger().info("Waiting for initial sensor data...")
         start_time = time.time()
         timeout = 10.0 # Increased timeout for initial data
 
@@ -140,8 +137,7 @@ class BrianGymEnv(gym.Env):
 
         if (time.time() - start_time) >= timeout:
             self.ros_node.get_logger().error("Timeout waiting for initial sensor data! Proceeding with potentially stale data.")
-        else:
-            self.ros_node.get_logger().info("Initial sensor data received.")
+
 
 
     # --- ROS 2 Callback Functions ---
@@ -212,9 +208,7 @@ class BrianGymEnv(gym.Env):
         request = Empty.Request()
         future = self.reset_client.call_async(request)
         rclpy.spin_until_future_complete(self.ros_node, future, executor=self.executor)
-        if future.result() is not None:
-            self.ros_node.get_logger().info("PyBullet simulation reset via service.")
-        else:
+        if future.result() is None:
             self.ros_node.get_logger().error(f"Failed to call reset service: {future.exception()}. This could cause issues.")
 
         # After reset, ensure sensor data is fresh, including the camera image
@@ -340,6 +334,5 @@ class BrianGymEnv(gym.Env):
         return None # For other render modes, or if no rendering is desired
 
     def close(self):
-        self.ros_node.get_logger().info("Shutting down BrianGymEnv ROS node.")
         self.executor.shutdown()
         self.ros_node.destroy_node()

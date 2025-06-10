@@ -24,7 +24,6 @@ from cv_bridge import CvBridge, CvBridgeError # Added CvBridge and CvBridgeError
 class brianPybullet(Node):
     def __init__(self, urdf_dir, robot_name):
         super().__init__('brian_pybullet_node')
-        self.get_logger().info("brian_pybullet_node is running!")
 
         # PyBullet setup
         # Use p.GUI if you want a visual window, otherwise p.DIRECT for headless
@@ -64,8 +63,8 @@ class brianPybullet(Node):
 
         # --- Camera Setup ---
         self.bridge = CvBridge() # Initialize CvBridge
-        self.camera_width = 320 # Standard width
-        self.camera_height = 240 # Standard height
+        self.camera_width = 640 # Standard width
+        self.camera_height = 480 # Standard height
         self.camera_fov = 90 # Field of View
         self.camera_near = 0.01
         self.camera_far = 100
@@ -99,13 +98,11 @@ class brianPybullet(Node):
         """ROS 2 Service callback to start/stop PyBullet state logging."""
         if request.data: # True to start logging
             if self.current_log_id != -1:
-                self.get_logger().warn("PyBullet state logging already active. Stopping previous log.")
                 pb.stopStateLogging(self.current_log_id)
 
             timestamp = time.strftime("%Y%m%d-%H%M%S")
             self.log_file_path = f"/tmp/brian_sim_log_{timestamp}.bullet" # Save to /tmp or a dedicated log folder
 
-            self.get_logger().info(f"Starting PyBullet state logging to {self.log_file_path}")
             # Use STATE_LOGGING_GENERIC_FILE for .bullet logs.
             # RecordVideo in Gymnasium will handle the MP4 conversion from the ROS image stream.
             self.current_log_id = pb.startStateLogging(pb.STATE_LOGGING_GENERIC_FILE, self.log_file_path)
@@ -114,20 +111,17 @@ class brianPybullet(Node):
             response.message = f"Started logging to {self.log_file_path}"
         else: # False to stop logging
             if self.current_log_id != -1:
-                self.get_logger().info(f"Stopping PyBullet state logging from {self.log_file_path}")
                 pb.stopStateLogging(self.current_log_id)
                 self.current_log_id = -1
                 response.success = True
                 response.message = f"Stopped logging from {self.log_file_path}"
             else:
-                self.get_logger().warn("PyBullet state logging not active. Cannot stop.")
                 response.success = False
                 response.message = "Logging not active."
         return response
 
     def reset_sim_callback(self, request, response):
         """ROS 2 Service callback to reset the simulation."""
-        self.get_logger().info("Resetting PyBullet simulation...")
 
         # Call the reset_robot method of the brianSim instance
         self.brian.reset_robot()
@@ -135,7 +129,6 @@ class brianPybullet(Node):
         # Reset feet contact and other internal states if necessary
         self.feet_contact = np.zeros(4, dtype='bool')
 
-        self.get_logger().info("PyBullet simulation reset complete.")
         return response
 
     def jointControlCB(self, data):
@@ -233,7 +226,6 @@ class brianPybullet(Node):
         all_angles, distances = self.brian.getLidarData(max_dist, res_deg)
 
         if all_angles is None or distances is None:
-            self.get_logger().error("Lidar data is None, skipping publish.")
             return
 
         all_angles_list = [float(a) for a in all_angles]
@@ -260,19 +252,10 @@ class brianPybullet(Node):
         self.laserScanPub.publish(self.laser_scan_msg)
 
     def publishCameraImage(self, current_time):
-        # Get robot's base position (we'll look at this point)
-        base_pos, _ = pb.getBasePositionAndOrientation(self.brian.robot)
-
-        # --- Define fixed camera position in world coordinates ---
-        # Example: Camera 2 meters behind, 0 meters left/right, 1 meter above the ground
-        # This will be a static camera position relative to the world origin.
-        camera_eye_position = [base_pos[0] - 2.0, base_pos[1], base_pos[2] + 1.0] # Behind and above the robot
-
-        # --- Define what the camera is looking at ---
-        # We want it to look at the robot's base
-        camera_target_position = list(base_pos) # Convert tuple to list for modification if needed
-        # Optionally, adjust target height to look slightly above the robot's feet
-        # camera_target_position[2] += 0.1 # Look slightly at the robot's body, not just ground
+        # Define fixed camera position and target in world coordinates
+        # You'll need to adjust these values
+        camera_eye_position = [0.5, 0.0, 0.5]  # e.g., 0.5m in X, 0m in Y, 0.5m in Z
+        camera_target_position = [0.0, 0.0, 0.2] # e.g., looking at world origin, slightly above ground
 
         # Compute view matrix
         view_matrix = pb.computeViewMatrix(
@@ -281,7 +264,7 @@ class brianPybullet(Node):
             cameraUpVector=[0, 0, 1] # Z-axis is up
         )
         projection_matrix = pb.computeProjectionMatrixFOV(
-            fov=self.camera_fov,
+            fov=self.camera_fov, # Use your defined FOV (e.g., 90)
             aspect=float(self.camera_width) / self.camera_height,
             nearVal=self.camera_near,
             farVal=self.camera_far
@@ -292,7 +275,7 @@ class brianPybullet(Node):
             height=self.camera_height,
             viewMatrix=view_matrix,
             projectionMatrix=projection_matrix,
-            renderer=pb.ER_TINY_RENDERER # or pb.ER_BULLET_HARDWARE_OPENGL for faster rendering if available
+            renderer=pb.ER_TINY_RENDERER
         )
 
         rgb_image = np.reshape(img_arr[2], (self.camera_height, self.camera_width, 4))[:, :, :3]
@@ -305,8 +288,15 @@ class brianPybullet(Node):
         except CvBridgeError as e:
             self.get_logger().error(f"CvBridge Error: {e}")
 
+        try:
+            ros_image_msg = self.bridge.cv2_to_imgmsg(rgb_image, encoding="rgb8")
+            ros_image_msg.header.stamp = current_time
+            ros_image_msg.header.frame_id = 'camera_link' # A frame for your camera sensor
+            self.cameraImagePub.publish(ros_image_msg)
+        except CvBridgeError as e:
+            self.get_logger().error(f"CvBridge Error: {e}")
+
     def destroy_node(self):
-        self.get_logger().info("PyBullet disconnected.")
         pb.disconnect() # Disconnect from PyBullet server
         super().destroy_node()
 
