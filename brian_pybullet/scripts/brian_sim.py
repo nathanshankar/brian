@@ -73,41 +73,17 @@ class brianSim(Node):
 
         self.prev_lin_vel = [0, 0, 0]
         self.prev_ang_vel = [0, 0, 0]
+
         self.timer = time.time()
 
         # Identify revolute joints (hip and knee) for control
         names = self.getJointNames()
         self.index_revolute_joints = []
+
         for i in range(len(names)):
             # Assuming 'hip' and 'knee' are in the names of revolute joints you want to control
             if 'hip' in names[i] or 'knee' in names[i]:
                 self.index_revolute_joints.append(i)
-
-    def _load_robot(self):
-        robot_id = pb.loadURDF(self.urdf_dir, self.startPos, pb.getQuaternionFromEuler(self.startOri))
-        return robot_id
-
-    def _colorize_robot(self):
-        for i in range(-1, pb.getNumJoints(self.robot)):
-            pb.changeVisualShape(self.robot, i, rgbaColor=self.rgba)
-
-    def reset_robot(self):
-        self.logging.info("Removing old robot and loading new one...")
-        if self.robot is not None:
-            try:
-                pb.removeBody(self.robot)
-                self.logging.info(f"Successfully removed old robot (ID: {self.robot}).")
-            except pb.error as e:
-                self.logging.error(f"Error removing old robot: {e}")
-
-        self.robot = self._load_robot()
-        self.num_joints = pb.getNumJoints(self.robot)
-        self._colorize_robot()
-
-        self.prev_lin_vel = [0, 0, 0]
-        self.prev_ang_vel = [0, 0, 0]
-        self.timer = time.time()
-        self.logging.info(f"New robot loaded (ID: {self.robot}).")
 
     def getJointNames(self):
         """Returns a list of all joint names in the robot."""
@@ -254,4 +230,3 @@ class brianSim(Node):
                 feet_contacts[3] = True
 
         return feet_contacts
-
