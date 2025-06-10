@@ -1,12 +1,13 @@
+# brian_sim.py
 #!/usr/bin/env -S python3
 
 import pybullet as pb
 import time
 import numpy as np
 from scipy.spatial.transform import Rotation as R
-from rclpy.node import Node # Keep this import for simpleLog's `super().__init__` if you use it
+# from rclpy.node import Node # REMOVED: brianSim should NOT be a ROS node itself.
 
-class simpleLog: # Your simpleLog class remains the same
+class simpleLog:
     def debug(self, msg):
         print('DEBUG: {:s}'.format(msg))
 
@@ -20,23 +21,20 @@ class simpleLog: # Your simpleLog class remains the same
         print('ERROR: {:s}'.format(msg))
 
 
-class brianSim(): # <--- REMOVE (Node) INHERITANCE HERE. brian_sim should NOT be a ROS node itself.
-                   # Only brianPybullet should be the node.
+class brianSim(): # REMOVED (Node) INHERITANCE
     def __init__(self, urdf_dir, startPos, start_euler, ground, logging=None, rgba=[0.2, 0.2, 0.2, 1]):
-        # super().__init__('brian_sim') # <--- REMOVE THIS LINE
+        # super().__init__('brian_sim') # REMOVED THIS LINE
         self.urdf_dir = urdf_dir
         self.startPos = startPos
         self.startOri = np.array(start_euler) * np.pi / 180
         self.ground = ground
-        self.rgba = rgba # Store rgba for reset
+        self.rgba = rgba
 
         if logging is not None:
             self.logging = logging
         else:
-            # Create a simpleLog instance if no logging is provided
-            self.logging = simpleLog() 
+            self.logging = simpleLog() # Create a simpleLog instance if no logging is provided
 
-        # Load the robot initially
         self.robot = self._load_robot()
         self.num_joints = pb.getNumJoints(self.robot)
         self._colorize_robot()
@@ -52,17 +50,14 @@ class brianSim(): # <--- REMOVE (Node) INHERITANCE HERE. brian_sim should NOT be
                 self.index_revolute_joints.append(i)
 
     def _load_robot(self):
-        """Internal helper to load the robot."""
         robot_id = pb.loadURDF(self.urdf_dir, self.startPos, pb.getQuaternionFromEuler(self.startOri))
         return robot_id
 
     def _colorize_robot(self):
-        """Internal helper to color the robot."""
-        for i in range(-1, pb.getNumJoints(self.robot)): # Use pb.getNumJoints(self.robot) in case num_joints isn't updated
+        for i in range(-1, pb.getNumJoints(self.robot)):
             pb.changeVisualShape(self.robot, i, rgbaColor=self.rgba)
 
     def reset_robot(self):
-        """Resets the robot to its initial position and orientation in PyBullet."""
         self.logging.info("Removing old robot and loading new one...")
         if self.robot is not None:
             try:
@@ -70,13 +65,11 @@ class brianSim(): # <--- REMOVE (Node) INHERITANCE HERE. brian_sim should NOT be
                 self.logging.info(f"Successfully removed old robot (ID: {self.robot}).")
             except pb.error as e:
                 self.logging.error(f"Error removing old robot: {e}")
-        
-        # Load the new robot
+
         self.robot = self._load_robot()
-        self.num_joints = pb.getNumJoints(self.robot) # Update num_joints for the new robot
+        self.num_joints = pb.getNumJoints(self.robot)
         self._colorize_robot()
 
-        # Reset any other necessary internal states
         self.prev_lin_vel = [0, 0, 0]
         self.prev_ang_vel = [0, 0, 0]
         self.timer = time.time()
@@ -152,7 +145,8 @@ class brianSim(): # <--- REMOVE (Node) INHERITANCE HERE. brian_sim should NOT be
                 joint_ix = self.index_revolute_joints[i]
                 pb.setJointMotorControl2(self.robot, joint_ix, pb.POSITION_CONTROL, joint_pos[i], maxVelocity=20)
         else:
-            self.get_logger().error(
+            # Changed to self.logging.error as brianSim is no longer a Node
+            self.logging.error(
                 'Expected position array of length {}, got {}'.format(len(self.index_revolute_joints), len(joint_pos)))
 
     def getFeetContact(self):

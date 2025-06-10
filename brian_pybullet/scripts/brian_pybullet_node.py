@@ -1,3 +1,4 @@
+# brian_pybullet_node.py
 #!/usr/bin/env -S python3
 import rclpy
 from rclpy.node import Node
@@ -7,36 +8,34 @@ import pybullet as pb
 import time
 import pybullet_data
 import numpy as np
-from brian_sim import brianSim, simpleLog # <--- Import simpleLog now
+from brian_sim import brianSim, simpleLog
 
 # ROS 2 Message Imports
-from sensor_msgs.msg import JointState, Imu, LaserScan, Image # Added Image
+from sensor_msgs.msg import JointState, Imu, LaserScan, Image
 from brian_msgs.msg import ContactDetection
 from nav_msgs.msg import Odometry
 from std_srvs.srv import Empty
 from std_srvs.srv import SetBool
-from geometry_msgs.msg import Quaternion, Vector3 # For Imu and Odometry
+from geometry_msgs.msg import Quaternion, Vector3
 
 # OpenCV and CvBridge for image processing
-import cv2 # Ensure you have opencv-python installed (pip install opencv-python)
-from cv_bridge import CvBridge, CvBridgeError # Added CvBridge and CvBridgeError
+import cv2
+from cv_bridge import CvBridge, CvBridgeError
+from scipy.spatial.transform import Rotation as R # Added for robot-relative camera
 
 class brianPybullet(Node):
     def __init__(self, urdf_dir, robot_name):
         super().__init__('brian_pybullet_node')
 
         # PyBullet setup
-        # Use p.GUI if you want a visual window, otherwise p.DIRECT for headless
-        # For video recording via ROS, p.DIRECT is usually sufficient and preferred for performance.
         self.physics_client = pb.connect(pb.DIRECT)
         pb.setAdditionalSearchPath(pybullet_data.getDataPath())
         pb.setTimeStep(0.001)
         pb.setGravity(0, 0, -9.8)
 
         self.plane = pb.loadURDF("plane.urdf", [0, 0, 0])
-        self.plane_id = self.plane # Store for potential contact checks later
+        self.plane_id = self.plane
 
-        # Load room (obstacles)
         room_urdf_dir = "/root/Documents/brian_ws/install/brian_pybullet/share/brian_pybullet/worlds/room.urdf"
         self.room_id = pb.loadURDF(room_urdf_dir, [0.0, 0.0, 0])
 
@@ -46,10 +45,7 @@ class brianPybullet(Node):
         self.start_ori_euler = [0, 0, 0]
 
         # Pass the node's logger to brianSim for consistent logging
-        brian_sim_logger = simpleLog() # Using your simpleLog, assuming it's available
-        # Alternatively, if simpleLog is just a print wrapper, consider using:
-        # brian_sim_logger = self.get_logger() # Option: Use ROS2 logger for brianSim messages
-
+        brian_sim_logger = simpleLog()
         self.brian = brianSim(urdf_dir, self.start_pos, self.start_ori_euler, self.plane, logging=brian_sim_logger)
 
         # Initialize ROS 2 messages
@@ -62,17 +58,17 @@ class brianPybullet(Node):
         self.laser_scan_msg = LaserScan()
 
         # --- Camera Setup ---
-        self.bridge = CvBridge() # Initialize CvBridge
-        self.camera_width = 640 # Standard width
-        self.camera_height = 480 # Standard height
-        self.camera_fov = 90 # Field of View
+        self.bridge = CvBridge()
+        self.camera_width = 640
+        self.camera_height = 480
+        self.camera_fov = 90
         self.camera_near = 0.01
         self.camera_far = 100
 
-        # Define camera position and target relative to the robot's base
-        # You'll need to adjust these for the best view of your robot
-        self.camera_offset_xyz = [0.2, 0.0, 0.3] # Offset from base_link (x,y,z)
-        self.camera_target_offset_xyz = [0.5, 0.0, 0.0] # Relative target point from camera origin
+        # Define camera position and target relative to the robot's base_link
+        # These will be transformed by the robot's current pose
+        self.camera_offset_xyz = [0.2, 0.0, 0.3] # Offset from robot's base_link
+        self.camera_lookat_offset_xyz = [0.5, 0.0, 0.0] # Point relative to camera_eye_position that it looks at
 
         # ROS 2 Publishers
         self.jointStatePub = self.create_publisher(JointState, f'/{robot_name}/joints_state', 10)
@@ -80,36 +76,34 @@ class brianPybullet(Node):
         self.robotOdomPub = self.create_publisher(Odometry, f'/{robot_name}/odom_data', 10)
         self.contactDetectionPub = self.create_publisher(ContactDetection, f'/{robot_name}/contact_detection', 10)
         self.laserScanPub = self.create_publisher(LaserScan, '/scan', 10)
-        self.cameraImagePub = self.create_publisher(Image, f'/{robot_name}/camera/image_raw', 10) # New Image Publisher
+        self.cameraImagePub = self.create_publisher(Image, f'/{robot_name}/camera/image_raw', 10)
 
         # ROS 2 Subscriber
         self.create_subscription(JointState, f'/{robot_name}/joints_control', self.jointControlCB, 10)
 
         # ROS 2 Service for Reset
         self.reset_service = self.create_service(Empty, '/brian/reset_sim', self.reset_sim_callback)
-        self.current_log_id = -1 # PyBullet logging ID
+        self.current_log_id = -1
         self.log_file_path = ""
         self.logging_service = self.create_service(SetBool, '/brian/set_logging', self.set_logging_callback)
 
         # Main simulation timer
-        self.timer = self.create_timer(0.001, self.mainThread) # Runs at 1000 Hz, PyBullet timestep is 0.001s
+        self.timer = self.create_timer(0.001, self.mainThread)
 
     def set_logging_callback(self, request, response):
         """ROS 2 Service callback to start/stop PyBullet state logging."""
-        if request.data: # True to start logging
+        if request.data:
             if self.current_log_id != -1:
                 pb.stopStateLogging(self.current_log_id)
 
             timestamp = time.strftime("%Y%m%d-%H%M%S")
-            self.log_file_path = f"/tmp/brian_sim_log_{timestamp}.bullet" # Save to /tmp or a dedicated log folder
+            self.log_file_path = f"/tmp/brian_sim_log_{timestamp}.bullet"
 
-            # Use STATE_LOGGING_GENERIC_FILE for .bullet logs.
-            # RecordVideo in Gymnasium will handle the MP4 conversion from the ROS image stream.
             self.current_log_id = pb.startStateLogging(pb.STATE_LOGGING_GENERIC_FILE, self.log_file_path)
 
             response.success = True
             response.message = f"Started logging to {self.log_file_path}"
-        else: # False to stop logging
+        else:
             if self.current_log_id != -1:
                 pb.stopStateLogging(self.current_log_id)
                 self.current_log_id = -1
@@ -122,23 +116,16 @@ class brianPybullet(Node):
 
     def reset_sim_callback(self, request, response):
         """ROS 2 Service callback to reset the simulation."""
-
-        # Call the reset_robot method of the brianSim instance
         self.brian.reset_robot()
-
-        # Reset feet contact and other internal states if necessary
         self.feet_contact = np.zeros(4, dtype='bool')
-
         return response
 
     def jointControlCB(self, data):
-        # Your brian_sim.py setJointPosition only takes joint_pos.
-        # It uses maxVelocity=20 as hardcoded in brian_sim.setJointPosition.
         self.brian.setJointPosition(data.position)
 
     def mainThread(self):
         pb.stepSimulation()
-        current_time = self.get_clock().now().to_msg() # Get current ROS time once per loop
+        current_time = self.get_clock().now().to_msg()
 
         self.feet_contact = self.brian.getFeetContact()
         self.is_colliding_with_obstacle = self._check_obstacle_collision()
@@ -148,12 +135,12 @@ class brianPybullet(Node):
         self.publishOdometryData(current_time)
         self.publishLidarData(current_time)
         self.publishContactDetectorData(current_time)
-        self.publishCameraImage(current_time) # NEW: Publish camera image
+        self.publishCameraImage(current_time)
 
     def _check_obstacle_collision(self):
         """Checks for collisions between the robot and the loaded room obstacles."""
         contacts_with_room = pb.getContactPoints(bodyA=self.brian.robot, bodyB=self.room_id)
-        return len(contacts_with_room) > 0 # True if any contact points exist
+        return len(contacts_with_room) > 0
 
     def publishJointState(self, current_time):
         pos, vel, torq = self.brian.getMotorJointStates()
@@ -173,20 +160,17 @@ class brianPybullet(Node):
         _, _, ang_pos, ang_vel, lin_acc, _ = self.brian.getRobotState()
 
         self.imu_msg.header.stamp = current_time
-        self.imu_msg.header.frame_id = "base_link" # Assuming "base_link" is the IMU frame
+        self.imu_msg.header.frame_id = "base_link"
 
-        # Quaternion orientation
         self.imu_msg.orientation.x = ang_pos[0]
         self.imu_msg.orientation.y = ang_pos[1]
         self.imu_msg.orientation.z = ang_pos[2]
         self.imu_msg.orientation.w = ang_pos[3]
 
-        # Angular velocity
         self.imu_msg.angular_velocity.x = ang_vel[0]
         self.imu_msg.angular_velocity.y = ang_vel[1]
         self.imu_msg.angular_velocity.z = ang_vel[2]
 
-        # Linear acceleration
         self.imu_msg.linear_acceleration.x = lin_acc[0]
         self.imu_msg.linear_acceleration.y = lin_acc[1]
         self.imu_msg.linear_acceleration.z = lin_acc[2]
@@ -233,13 +217,13 @@ class brianPybullet(Node):
 
 
         self.laser_scan_msg.header.stamp = current_time
-        self.laser_scan_msg.header.frame_id = "lidar_link" # Ensure this matches your URDF
+        self.laser_scan_msg.header.frame_id = "lidar_link"
 
         self.laser_scan_msg.angle_min = float(np.min(all_angles_list))
         self.laser_scan_msg.angle_max = float(np.max(all_angles_list))
         self.laser_scan_msg.angle_increment = res_deg * (np.pi / 180.0)
 
-        scan_frequency = 10.0 # Assuming 10 Hz scan rate
+        scan_frequency = 10.0
         self.laser_scan_msg.scan_time = 1.0 / scan_frequency
         self.laser_scan_msg.time_increment = self.laser_scan_msg.scan_time / len(distances_list) if distances_list else 0.0
 
@@ -247,24 +231,30 @@ class brianPybullet(Node):
         self.laser_scan_msg.range_max = max_dist
 
         self.laser_scan_msg.ranges = distances_list
-        self.laser_scan_msg.intensities = distances_list # Often ranges are used for intensities in simple lidar
+        self.laser_scan_msg.intensities = distances_list
 
         self.laserScanPub.publish(self.laser_scan_msg)
 
     def publishCameraImage(self, current_time):
-        # Define fixed camera position and target in world coordinates
-        # You'll need to adjust these values
-        camera_eye_position = [0.5, 0.0, 0.5]  # e.g., 0.5m in X, 0m in Y, 0.5m in Z
-        camera_target_position = [0.0, 0.0, 0.2] # e.g., looking at world origin, slightly above ground
+        # Get current robot base position and orientation
+        robot_pos, robot_ori_quat = pb.getBasePositionAndOrientation(self.brian.robot)
+        robot_rot_matrix = R.from_quat(robot_ori_quat).as_matrix()
+
+        # Transform camera_offset_xyz from robot's base_link frame to world frame
+        camera_eye_position = np.array(robot_pos) + np.dot(robot_rot_matrix, np.array(self.camera_offset_xyz))
+
+        # Transform camera_lookat_offset_xyz from camera's frame to world frame
+        # The camera looks at a point relative to its own position
+        camera_target_position = camera_eye_position + np.dot(robot_rot_matrix, np.array(self.camera_lookat_offset_xyz))
 
         # Compute view matrix
         view_matrix = pb.computeViewMatrix(
             cameraEyePosition=camera_eye_position,
             cameraTargetPosition=camera_target_position,
-            cameraUpVector=[0, 0, 1] # Z-axis is up
+            cameraUpVector=[0, 0, 1] # Z-axis is up in PyBullet's world frame
         )
         projection_matrix = pb.computeProjectionMatrixFOV(
-            fov=self.camera_fov, # Use your defined FOV (e.g., 90)
+            fov=self.camera_fov,
             aspect=float(self.camera_width) / self.camera_height,
             nearVal=self.camera_near,
             farVal=self.camera_far
@@ -275,7 +265,7 @@ class brianPybullet(Node):
             height=self.camera_height,
             viewMatrix=view_matrix,
             projectionMatrix=projection_matrix,
-            renderer=pb.ER_TINY_RENDERER
+            renderer=pb.ER_TINY_RENDERER # or pb.ER_BULLET_HARDWARE_OPENGL for better quality if available
         )
 
         rgb_image = np.reshape(img_arr[2], (self.camera_height, self.camera_width, 4))[:, :, :3]
@@ -283,37 +273,27 @@ class brianPybullet(Node):
         try:
             ros_image_msg = self.bridge.cv2_to_imgmsg(rgb_image, encoding="rgb8")
             ros_image_msg.header.stamp = current_time
-            ros_image_msg.header.frame_id = 'camera_link' # A frame for your camera sensor
+            ros_image_msg.header.frame_id = 'camera_link'
             self.cameraImagePub.publish(ros_image_msg)
         except CvBridgeError as e:
-            self.get_logger().error(f"CvBridge Error: {e}")
-
-        try:
-            ros_image_msg = self.bridge.cv2_to_imgmsg(rgb_image, encoding="rgb8")
-            ros_image_msg.header.stamp = current_time
-            ros_image_msg.header.frame_id = 'camera_link' # A frame for your camera sensor
-            self.cameraImagePub.publish(ros_image_msg)
-        except CvBridgeError as e:
-            self.get_logger().error(f"CvBridge Error: {e}")
+            self.get_logger().error(f"CvBridge Error: {e}") # Use self.get_logger()
 
     def destroy_node(self):
-        pb.disconnect() # Disconnect from PyBullet server
+        pb.disconnect()
         super().destroy_node()
 
 def main(args=None):
     rclpy.init(args=args)
 
     robot_name = "brian"
-    # Ensure this path is correct for your setup
     urdf_dir = get_package_share_directory('brian_description') + "/urdf/brian.urdf"
 
-    # Minimal setup for parameter loading (if you actually use parameters from launch files)
-    node = rclpy.create_node('parameter_loader_temp') # Temporary node for parameters
+    node = rclpy.create_node('parameter_loader_temp')
     node.declare_parameter('robot_name', robot_name)
     node.declare_parameter('urdf_path', urdf_dir)
     robot_name = node.get_parameter('robot_name').value
     urdf_dir = node.get_parameter('urdf_path').value
-    node.destroy_node() # Destroy temporary node
+    node.destroy_node()
 
     brian_node = brianPybullet(urdf_dir, robot_name)
 
@@ -324,7 +304,6 @@ def main(args=None):
     finally:
         brian_node.destroy_node()
         rclpy.shutdown()
-
 
 if __name__ == '__main__':
     main()
